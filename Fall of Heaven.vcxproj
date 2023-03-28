@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Development Libraries\SDL2-2.26.2\include;C:\Development Libraries\SDL2_image-2.6.2\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Development Libraries\SDL2-2.26.2\include;C:\Development Libraries\SDL2_image-2.6.2\include;F:\New Documents\Projects\Fall of Heaven\Fall of Heaven;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Development Libraries\SDL2_image-2.6.2\lib\x64;C:\Development Libraries\SDL2-2.26.2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -133,9 +133,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\eltim\Desktop\Game.cpp" />
+    <ClCompile Include="Plank.cpp" />
+    <ClCompile Include="TextureWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="C:\Users\eltim\Desktop\Game.h" />
+    <ClInclude Include="Plank.h" />
+    <ClInclude Include="TextureWrapper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
