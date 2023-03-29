@@ -172,7 +172,7 @@ int main(int argc, char* args[])
 			}
 		}
 	}
-
+	// is source control good now?
 	closeGame();
 
 	return 0;

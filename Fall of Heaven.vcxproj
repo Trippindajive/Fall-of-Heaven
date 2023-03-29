@@ -132,12 +132,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\eltim\Desktop\Game.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Plank.cpp" />
     <ClCompile Include="TextureWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\eltim\Desktop\Game.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Plank.h" />
     <ClInclude Include="TextureWrapper.h" />
   </ItemGroup>
