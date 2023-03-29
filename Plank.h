@@ -11,7 +11,8 @@ public:
 	
 	static const int PLANK_WIDTH = 80;
 	static const int PLANK_HEIGHT = 20;
-	static const int PLANK_MAX_AXIS_VEL = 10;
+	static constexpr int PLANK_MAX_AXIS_VEL = 10;
+	static constexpr int GFORCE = -1;
 
 	Plank();
 

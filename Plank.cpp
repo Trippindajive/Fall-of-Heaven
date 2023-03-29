@@ -13,7 +13,7 @@ void Plank::handleKeyPresses(SDL_Event& e)
 	// If a key was pressed
 	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
 	{
-		//Adjust the velocity
+		// Adjust the velocity
 		switch (e.key.keysym.sym)
 		{
 		case SDLK_UP: plankVelY -= PLANK_MAX_AXIS_VEL; break;
