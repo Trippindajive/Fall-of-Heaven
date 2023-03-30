@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Development Libraries\SDL2-2.26.2\include;C:\Development Libraries\SDL2_image-2.6.2\include;F:\New Documents\Projects\Fall of Heaven\Fall of Heaven;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Development Libraries\SDL2_image-2.6.2\lib\x64;C:\Development Libraries\SDL2-2.26.2\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Development Libraries\SDL2-2.26.2\include;C:\Development Libraries\SDL2_image-2.6.2\include;F:\New Documents\Projects\Fall of Heaven\Fall of Heaven\x64\Debug;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Development Libraries\SDL2-2.26.2\lib\x64;C:\Development Libraries\SDL2_image-2.6.2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -139,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bar.h" />
+    <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Plank.h" />
     <ClInclude Include="TextureWrapper.h" />

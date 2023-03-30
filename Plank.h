@@ -22,6 +22,10 @@ public:
 
 	void render(LTexture* gPlankTexture, SDL_Renderer* gRenderer);
 
+	int getPosX();
+	int getPosY();
+	void setVelY(int);
+
 private:
 	int plankPosX, plankPosY;
 	int plankVelX, plankVelY;

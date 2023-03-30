@@ -62,7 +62,7 @@ bool initGame()
 	}
 	else
 	{
-		//Set texture filtering to linear
+		// Set texture filtering to linear
 		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
 		{
 			printf("Warning: Linear texture filtering not enabled!");
@@ -122,7 +122,8 @@ bool loadMedia()
 
 void closeGame()
 {
-	gPlankTexture.freeTexture();	
+	gPlankTexture.freeTexture();
+	gBarTexture.freeTexture();
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
@@ -130,6 +131,14 @@ void closeGame()
 
 	IMG_Quit();
 	SDL_Quit();
+}
+
+void checkForCollisionWBar(Plank plank, Bar bar)
+{
+	/*if (SDL_HasIntersection(gPlankTexture.getRect(), gBarTexture.getRect()))
+	{
+		plank.setVelY(0);
+	}*/
 }
 
 int main(int argc, char* args[])
@@ -167,6 +176,8 @@ int main(int argc, char* args[])
 				}
 
 				plank.move(SCREEN_HEIGHT, SCREEN_WIDTH);
+
+				//checkForCollisionWBar(plank, bar);
 
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);

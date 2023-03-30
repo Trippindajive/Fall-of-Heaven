@@ -36,9 +36,11 @@ public:
 	// Gets image dimensions
 	int getWidth();
 	int getHeight();
+	SDL_Rect* getRect();
 
 private:
 	SDL_Texture* hTexture;  // hardware-based texture
+	SDL_Rect* hRect;		// rectangle for detecting collision
 	int hWidth;
 	int hHeight;
 };

@@ -6,3 +6,12 @@ void Bar::render(LTexture* gBarTexture, SDL_Renderer* gRenderer)
 {
 	gBarTexture->render(barPosX, barPosY, gRenderer);
 }
+
+int Bar::getPosX()
+{
+	return barPosX;
+}
+
+int Bar::getPosY() {
+	return barPosY;
+}

@@ -64,3 +64,17 @@ void Plank::render(LTexture* gPlankTexture, SDL_Renderer* gRenderer)
 	gPlankTexture->render(plankPosX, plankPosY, gRenderer);
 }
 
+int Plank::getPosX()
+{
+	return plankPosX;
+}
+
+int Plank::getPosY() {
+	return plankPosY;
+}
+
+void Plank::setVelY(int val)
+{
+	plankPosY = val;
+}
+

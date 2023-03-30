@@ -41,5 +41,8 @@
     <ClInclude Include="Bar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

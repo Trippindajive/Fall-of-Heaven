@@ -11,6 +11,9 @@ public:
 	
 	void render(LTexture* gBarTexture, SDL_Renderer* gRenderer);
 
+	int getPosX();
+	int getPosY();
+
 private:
 	int barPosX = 0;
 	int barPosY = 400;

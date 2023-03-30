@@ -6,6 +6,7 @@ using namespace std;
 LTexture::LTexture()
 {
 	hTexture = NULL;
+	hRect = NULL;
 	hWidth = 0;
 	hHeight = 0;
 }
@@ -118,6 +119,9 @@ void LTexture::render(int x, int y, SDL_Renderer* gRenderer, SDL_Rect* clip, dou
 	// height of rect
 	SDL_Rect renderSpace = { x, y, hWidth, hHeight };
 
+	// Create collision box
+	//*hRect = { x, y, hWidth, hHeight };
+
 	// Set renderSpace dimensions to clip rendering dimensions
 	if (clip != NULL)
 	{
@@ -137,4 +141,9 @@ int LTexture::getWidth()
 int LTexture::getHeight()
 {
 	return hHeight;
+}
+
+SDL_Rect* LTexture::getRect()
+{
+	return hRect;
 }
