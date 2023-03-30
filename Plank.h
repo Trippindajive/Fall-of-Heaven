@@ -16,11 +16,13 @@ public:
 
 	Plank();
 
-	void handleKeyPresses(SDL_Event& e);
+	void handleKeyPresses(SDL_Event&);
 
-	void move(const int height, const int width);
+	void move(SDL_Rect&, const int, const int);
 
-	void render(LTexture* gPlankTexture, SDL_Renderer* gRenderer);
+	bool checkCollision(SDL_Rect, SDL_Rect);
+
+	void render(LTexture*, SDL_Renderer*);
 
 	int getPosX();
 	int getPosY();
@@ -29,6 +31,7 @@ public:
 private:
 	int plankPosX, plankPosY;
 	int plankVelX, plankVelY;
+	SDL_Rect plankCollider;
 };
 
 #endif /* PLANK_H_INCLUDED */

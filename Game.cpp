@@ -133,14 +133,6 @@ void closeGame()
 	SDL_Quit();
 }
 
-void checkForCollisionWBar(Plank plank, Bar bar)
-{
-	/*if (SDL_HasIntersection(gPlankTexture.getRect(), gBarTexture.getRect()))
-	{
-		plank.setVelY(0);
-	}*/
-}
-
 int main(int argc, char* args[])
 {
 	if (!initGame())
@@ -175,9 +167,7 @@ int main(int argc, char* args[])
 					plank.handleKeyPresses(e);
 				}
 
-				plank.move(SCREEN_HEIGHT, SCREEN_WIDTH);
-
-				//checkForCollisionWBar(plank, bar);
+				plank.move(*bar.getCollider(), SCREEN_HEIGHT, SCREEN_WIDTH);
 
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
