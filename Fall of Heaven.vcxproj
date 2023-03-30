@@ -139,7 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bar.h" />
-    <ClInclude Include="CollisionBox.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Plank.h" />
     <ClInclude Include="TextureWrapper.h" />
