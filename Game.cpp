@@ -1,7 +1,9 @@
 #include <SDL.h>
 #include <SDL_image.h>  // Hardware-Accelerated Rendering, loads images as SDL surfaces/textures
+#include <stdexcept>
 #include <stdio.h>		// standard input/output
-#include <string>		 
+#include <string>
+#include "Bar.h"
 #include "Game.h"
 #include "Plank.h"
 #include "TextureWrapper.h"
@@ -12,8 +14,7 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const char* GAME_NAME = "Fall of Heaven";
 
-
-//The application time based timer
+/*The application time based timer
 class LTimer
 {
 public:
@@ -43,11 +44,12 @@ private:
 	//The timer status
 	bool mPaused;
 	bool mStarted;
-};
+};*/
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 LTexture gPlankTexture;
+LTexture gBarTexture;
 
 bool initGame()
 {
@@ -106,8 +108,13 @@ bool loadMedia()
 
 	if (!gPlankTexture.loadFromFile("textures/plank.png", gRenderer))
 	{
-		printf("Failed to load dot texture!\n");
+		printf("Failed to load plank texture!\n");
 		success = false;
+	}
+
+	if (!gBarTexture.loadFromFile("textures/bar.png", gRenderer))
+	{
+		throw exception("Failed to load bar texture!\n");
 	}
 
 	return success;
@@ -142,6 +149,7 @@ int main(int argc, char* args[])
 			bool game_quit = false;
 			SDL_Event e;
 			Plank plank;
+			Bar bar;
 
 			while (!game_quit)
 			{
@@ -166,13 +174,14 @@ int main(int argc, char* args[])
 
 				// Render objects
 				plank.render(&gPlankTexture, gRenderer);
+				bar.render(&gBarTexture, gRenderer);
 
 				// Update screen space
 				SDL_RenderPresent(gRenderer);
 			}
 		}
 	}
-	// is source control good now?
+	
 	closeGame();
 
 	return 0;

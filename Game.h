@@ -7,6 +7,6 @@
 bool initGame();
 bool loadMedia();
 void closeGame();
-SDL_Texture* loadTexture(std::string path);
+//SDL_Texture* loadTexture(std::string path);
 
 #endif /* GAME_H_INCLUDED */
