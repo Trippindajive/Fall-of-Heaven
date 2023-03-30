@@ -9,7 +9,6 @@
 #include "TextureWrapper.h"
 
 using namespace std;
-// test src control
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
