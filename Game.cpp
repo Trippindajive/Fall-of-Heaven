@@ -6,6 +6,7 @@
 #include "Bar.h"
 #include "Game.h"
 #include "Plank.h"
+#include "Projectile.h"
 #include "TextureWrapper.h"
 
 using namespace std;
@@ -50,6 +51,7 @@ SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 LTexture gPlankTexture;
 LTexture gBarTexture;
+LTexture gProjTexture;
 
 bool initGame()
 {
@@ -117,6 +119,11 @@ bool loadMedia()
 		throw exception("Failed to load bar texture!\n");
 	}
 
+	if (!gProjTexture.loadFromFile("textures/projectile.png", gRenderer))
+	{
+		throw exception("Failed to load projectile texture!\n");
+	}
+
 	return success;
 }
 
@@ -124,6 +131,7 @@ void closeGame()
 {
 	gPlankTexture.freeTexture();
 	gBarTexture.freeTexture();
+	gProjTexture.freeTexture();
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
@@ -151,6 +159,7 @@ int main(int argc, char* args[])
 			SDL_Event e;
 			Plank plank;
 			Bar bar;
+			Projectile ball;
 
 			while (!game_quit)
 			{
@@ -176,6 +185,8 @@ int main(int argc, char* args[])
 				// Render objects
 				plank.render(&gPlankTexture, gRenderer);
 				bar.render(&gBarTexture, gRenderer);
+				ball.render(&gProjTexture, gRenderer);
+
 
 				// Update screen space
 				SDL_RenderPresent(gRenderer);
