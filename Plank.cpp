@@ -1,4 +1,7 @@
+#include <iostream>
 #include "Plank.h"
+
+using namespace std;
 
 Plank::Plank()
 {
@@ -38,14 +41,17 @@ void Plank::handleKeyPresses(SDL_Event& e)
 	}
 }
 
+/* Must use parameters (hardcoded temp solution) */
 void Plank::move(SDL_Rect& box, const int width, const int height)
 {
 	// Left/Right
 	plankPosX += plankVelX;
 	plankCollider.x = plankPosX;
+	cout << "Plank X-Position: " << plankPosX << " || Plank Velocity: " <<
+		plankVelX << "\n";
 
 	// If the plank went too far to the left or right or collided w/ box
-	if ((plankPosX < 0) || (plankPosX + PLANK_WIDTH > width) || checkCollision(plankCollider, box))
+	if ((plankPosX < 0) || (plankPosX > 560) || checkCollision(plankCollider, box))
 	{
 		// Move back
 		plankPosX -= plankVelX;
@@ -55,9 +61,10 @@ void Plank::move(SDL_Rect& box, const int width, const int height)
 	// Up/Down
 	plankPosY += plankVelY;
 	plankCollider.y = plankPosY;
-
+	cout << "Plank Y-Position: " << plankPosY << " || Plank Velocity: " <<
+		plankVelY << "\n";
 	// If the plank went too far up or down or collided w/ box
-	if ((plankPosY < 0) || (plankPosY + PLANK_HEIGHT > height) || checkCollision(plankCollider, box))
+	if ((plankPosY > 470) || (plankPosY < 10) || checkCollision(plankCollider, box))
 	{
 		// Move back
 		plankPosY -= plankVelY;
