@@ -1,9 +1,11 @@
+#include <cstdlib>
+#include <iostream>
 #include "Projectile.h"
 
 Projectile::Projectile()
 {
-	projPosX = 350;
-	projPosY = 100;
+	projPosX = rand() % 500;
+	projPosY = 0;
 	projVelX = 0;
 	projVelY = 0;
 	projCollider.x = projPosX;
@@ -12,10 +14,82 @@ Projectile::Projectile()
 	projCollider.h = PROJECTILE_HEIGHT;
 }
 
-bool checkCollision(SDL_Rect a, SDL_Rect b)
+void Projectile::move(/*SDL_Rect& otherpj,*/ SDL_Rect& player, Plank& plk)
 {
-	return false;
+	// set random seed for random random sequences
+	srand(time(NULL));
+
+	std::cout << "score is: " << plk.getScore() << "\n";
+	projPosY += rand() % 5 + 1;  // postion += velocity (random # from 1-5)
+	projCollider.y = projPosY;
+	// if projectile contacts the player
+	if (/*checkCollision(projCollider, otherpj) ||*/ checkCollision(projCollider, player))  // If it collided, then move projectile back
+	{
+		std::cout << "Projectile collided w/ player!!!!\n";
+		//projVelY -= projVelY;
+		projPosX = rand() % 500;
+		projPosY = 0;
+		projCollider.x = projPosX;
+		projCollider.y = projPosY;
+		plk.addScore(1);
+	}
+	// if projectile falls thru bottom of screen
+	if (projPosY >= 500)
+	{
+		projPosX = rand() % 500;
+		projPosY = 0;
+		projCollider.x = projPosX;
+		projCollider.y = projPosY;
+	}
+	
 }
+
+bool Projectile::checkCollision(SDL_Rect a, SDL_Rect b)
+{
+	int leftA, leftB;
+	int rightA, rightB;
+	int topA, topB;
+	int bottomA, bottomB;
+
+	// Get sides of rect A
+	leftA = a.x;
+	rightA = a.x + a.w;
+	topA = a.y;
+	bottomA = a.y + a.h;
+
+	// Get sides of rect B
+	leftB = b.x;
+	rightB = b.x + b.w;
+	topB = b.y;
+	bottomB = b.y + b.h;
+
+	// If any sides from A overlap sides from B, then no collision
+	// Less than because the coordinate system points downward
+	if (bottomA < topB)
+	{
+		//std::cout << "didn't hit top right\n";
+		return false;
+	}
+	if (topA > bottomB)
+	{
+		//std::cout << "didn't hit bottom right\n";
+		return false;
+	}
+	if (rightA < leftB)
+	{
+		//std::cout << "didn't hit left\n";
+		return false;
+	}
+	if (leftA > rightB)
+	{
+		//std::cout << "didn't hit right\n";
+		return false;
+	}
+
+	// O.W. there is an overlap across the separting axis
+	return true;
+}
+
 
 void Projectile::render(LTexture* gProjTexture, SDL_Renderer* gRenderer)
 {
@@ -25,15 +99,30 @@ void Projectile::render(LTexture* gProjTexture, SDL_Renderer* gRenderer)
 
 int Projectile::getPosX()
 {
-	return -1;
+	return projPosX;
 }
 
 int Projectile::getPosY()
 {
-	return -1;
+	return projPosY;
 }
 
 SDL_Rect* Projectile::getCollider()
 {
-	return NULL;
+	return &projCollider;
+}
+
+void Projectile::setVelY(int val)
+{
+	projVelY += val;
+}
+
+int Projectile::getVelX()
+{
+	return projVelX;
+}
+
+int Projectile::getVelY()
+{
+	return projVelY;
 }

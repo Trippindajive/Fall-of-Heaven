@@ -15,38 +15,6 @@ const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 const char* GAME_NAME = "Fall of Heaven";
 
-/*The application time based timer
-class LTimer
-{
-public:
-	//Initializes variables
-	LTimer();
-
-	//The various clock actions
-	void start();
-	void stop();
-	void pause();
-	void unpause();
-
-	//Gets the timer's time
-	Uint32 getTicks();
-
-	//Checks the status of the timer
-	bool isStarted();
-	bool isPaused();
-
-private:
-	//The clock time when the timer started
-	Uint32 mStartTicks;
-
-	//The ticks stored when the timer was paused
-	Uint32 mPausedTicks;
-
-	//The timer status
-	bool mPaused;
-	bool mStarted;
-};*/
-
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
 LTexture gPlankTexture;
@@ -141,6 +109,11 @@ void closeGame()
 	SDL_Quit();
 }
 
+void moveProjectiles(Projectile* pj, int gravity)
+{
+	pj->setVelY(gravity);
+}
+
 int main(int argc, char* args[])
 {
 	if (!initGame())
@@ -160,6 +133,13 @@ int main(int argc, char* args[])
 			Plank plank;
 			Bar bar;
 			Projectile ball;
+			// Trying to make a small HUD at upper right corner
+			/*SDL_Rect topLeftViewport;
+			topLeftViewport.x = 500;
+			topLeftViewport.y = 0;
+			topLeftViewport.w = SCREEN_WIDTH / 4;
+			topLeftViewport.h = SCREEN_HEIGHT / 4;
+			SDL_RenderSetViewport(gRenderer, &topLeftViewport);*/
 
 			while (!game_quit)
 			{
@@ -177,6 +157,7 @@ int main(int argc, char* args[])
 				}
 
 				plank.move(*bar.getCollider(), SCREEN_HEIGHT, SCREEN_WIDTH);
+				ball.move(/**bar.getCollider(),*/ *plank.getCollider(), plank);
 
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
@@ -187,6 +168,8 @@ int main(int argc, char* args[])
 				bar.render(&gBarTexture, gRenderer);
 				ball.render(&gProjTexture, gRenderer);
 
+				//moveProjectiles(&ball, 10);
+				//ball.projVelY += 10;
 
 				// Update screen space
 				SDL_RenderPresent(gRenderer);

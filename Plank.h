@@ -8,7 +8,6 @@
 class Plank
 {
 public:
-	
 	static const int PLANK_WIDTH = 80;
 	static const int PLANK_HEIGHT = 20;
 	static constexpr int PLANK_MAX_AXIS_VEL = 10;
@@ -26,11 +25,15 @@ public:
 
 	int getPosX();
 	int getPosY();
+	int getScore();
+	SDL_Rect* getCollider();
 	void setVelY(int);
+	void addScore(int);
 
 private:
 	int plankPosX, plankPosY;
 	int plankVelX, plankVelY;
+	int score;
 	SDL_Rect plankCollider;
 };
 
