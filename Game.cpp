@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <SDL_image.h>  // Hardware-Accelerated Rendering, loads images as SDL surfaces/textures
+#include <SDL_ttf.h>
 #include <stdexcept>
 #include <stdio.h>		// standard input/output
 #include <string>
@@ -20,6 +21,8 @@ SDL_Renderer* gRenderer = NULL;
 LTexture gPlankTexture;
 LTexture gBarTexture;
 LTexture gProjTexture;
+TTF_Font* gFont = NULL;
+LTexture gTextTexture;
 
 bool initGame()
 {
@@ -58,11 +61,18 @@ bool initGame()
 			{
 				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
 
-				//Initialize PNG loading
+				// Initialize PNG loading
 				int imgFlags = IMG_INIT_PNG;
 				if (!(IMG_Init(imgFlags) & imgFlags))
 				{
 					printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+					success = false;
+				}
+
+				// Initialize SDL True Type Font
+				if (TTF_Init() == -1)
+				{
+					printf("SDL TTF could not be initialized! SDL_ttf Error: %s\n", TTF_GetError());
 					success = false;
 				}
 			}
@@ -92,6 +102,24 @@ bool loadMedia()
 		throw exception("Failed to load projectile texture!\n");
 	}
 
+	// Open Font
+	gFont = TTF_OpenFont("textures/lazy.ttf", 28);
+	if (gFont == NULL)
+	{
+		printf("Failed to load lazy font! SDL_ttf Error: %s\n", TTF_GetError());
+		success = false;
+	}
+	else
+	{
+		// Render Text
+		SDL_Color textColor = { 0, 0, 0 };
+		if (!gTextTexture.loadFromRenderedText("The quick brown fox jumps over the lazy dog", textColor, gFont, gRenderer))
+		{
+			printf("Failed to render text texture!\n");
+			success = false;
+		}
+	}
+
 	return success;
 }
 
@@ -100,11 +128,15 @@ void closeGame()
 	gPlankTexture.freeTexture();
 	gBarTexture.freeTexture();
 	gProjTexture.freeTexture();
+	gTextTexture.freeTexture();
+	TTF_CloseFont(gFont);
+	gFont = NULL;
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
 	gWindow = NULL;
 	gRenderer = NULL;
 
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 }
@@ -168,6 +200,8 @@ int main(int argc, char* args[])
 				bar.render(&gBarTexture, gRenderer);
 				ball.render(&gProjTexture, gRenderer);
 
+				// Render Current Frame
+				gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gTextTexture.getHeight()) / 2, gRenderer);
 				//moveProjectiles(&ball, 10);
 				//ball.projVelY += 10;
 

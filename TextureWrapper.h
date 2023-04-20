@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint> 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <string>
 
 class LTexture
@@ -14,6 +15,8 @@ public:
 
 	bool loadFromFile(std::string path, SDL_Renderer* gRenderer);
 
+	bool loadFromRenderedText(std::string textureText, SDL_Color textColor, TTF_Font*, SDL_Renderer*);
+
 	/*#if defined(SDL_TTF_MAJOR_VERSION)
 		//Creates image from font string
 		bool loadFromRenderedText(std::string textureText, SDL_Color textColor);
@@ -22,17 +25,16 @@ public:
 	void freeTexture();
 
 	// Alters color of rendered texture
-	void setColor(Uint8 red, Uint8 green, Uint8 blue);
+	void setColor(Uint8, Uint8, Uint8);
 
 	// Set blending mode for copying texture portion to current rendering target
-	void setBlendMode(SDL_BlendMode mode);
+	void setBlendMode(SDL_BlendMode);
 
 	// Set alpha modulation multiplier for render copy operations
-	void setAlpha(Uint8 alpha);
+	void setAlpha(Uint8);
 
 	// Renders texture at given point
-	void render(int x, int y, SDL_Renderer* , SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
-
+	void render(int, int, SDL_Renderer*, SDL_Rect* clip = NULL, double angle = 0.0, SDL_Point* center = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	// Gets image dimensions
 	int getWidth();
 	int getHeight();

@@ -46,6 +46,37 @@ bool LTexture::loadFromFile(string path, SDL_Renderer* gRenderer)
 	return hTexture != NULL;
 }
 
+bool LTexture::loadFromRenderedText(string textureText, SDL_Color textColor, TTF_Font* textFont, SDL_Renderer* renderer)
+{
+	freeTexture();  // omit preexisting texture
+	SDL_Surface* textSurface = TTF_RenderText_Solid(textFont, textureText.c_str(), textColor);
+	
+	if (textSurface == NULL)
+	{
+		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+	}
+	else
+	{
+		//Create texture from surface pixels
+		hTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+		if (hTexture == NULL)
+		{
+			printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			//Get image dimensions
+			hWidth = textSurface->w;
+			hHeight = textSurface->h;
+		}
+
+		//Get rid of old surface
+		SDL_FreeSurface(textSurface);
+	}
+
+		return hTexture != NULL;
+}
+
 /*#if defined(SDL_TTF_MAJOR_VERSION)
 bool LTexture::loadFromRenderedText(std::string textureText, SDL_Color textColor)
 {

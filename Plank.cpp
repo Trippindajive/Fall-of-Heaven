@@ -39,6 +39,8 @@ void Plank::handleKeyPresses(SDL_Event& e)
 		case SDLK_LEFT: plankVelX += PLANK_MAX_AXIS_VEL; break;
 		case SDLK_RIGHT: plankVelX -= PLANK_MAX_AXIS_VEL; break;
 		}
+		std::cout << "Plank-X = " << plankPosX
+			<< " || Plank-Y = " << plankPosY << '\n';
 	}
 }
 

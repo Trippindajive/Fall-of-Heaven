@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\Development Libraries\SDL2-2.26.4\include;C:\Development Libraries\SDL2_image-2.6.3\include;C:\Development Libraries\SDL2-2.26.2\include;C:\Development Libraries\SDL2_image-2.6.2\include;F:\New Documents\Projects\Fall of Heaven\Fall of Heaven\x64\Debug;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Development Libraries\SDL2-2.26.4\lib;C:\Development Libraries\SDL2_image-2.6.3\lib;C:\Development Libraries\SDL2-2.26.2\lib\x64;C:\Development Libraries\SDL2_image-2.6.2\lib\x64;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Development Libraries\SDL2-2.26.4\lib;C:\Development Libraries\SDL2_image-2.6.3\lib;C:\Development Libraries\SDL2-2.26.2\lib\x64;C:\Development Libraries\SDL2_image-2.6.2\lib\x64;C:\Development Libraries\SDL2_ttf-2.20.2\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,13 +108,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Development Libraries\SDL2-2.26.4\include;C:\Development Libraries\SDL2_image-2.6.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Development Libraries\SDL2-2.26.4\include;C:\Development Libraries\SDL2_image-2.6.3\include;C:\Development Libraries\SDL2_ttf-2.20.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2main.lib;SDL2_image.lib;SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Development Libraries\SDL2-2.26.4\lib\x64;C:\Development Libraries\SDL2_image-2.6.3\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2main.lib;SDL2_image.lib;SDL2.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Development Libraries\SDL2-2.26.4\lib\x64;C:\Development Libraries\SDL2_image-2.6.3\lib\x64;C:\Development Libraries\SDL2_ttf-2.20.2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -19,19 +19,21 @@ void Projectile::move(/*SDL_Rect& otherpj,*/ SDL_Rect& player, Plank& plk)
 	// set random seed for random random sequences
 	srand(time(NULL));
 
-	std::cout << "score is: " << plk.getScore() << "\n";
 	projPosY += rand() % 5 + 1;  // postion += velocity (random # from 1-5)
 	projCollider.y = projPosY;
 	// if projectile contacts the player
 	if (/*checkCollision(projCollider, otherpj) ||*/ checkCollision(projCollider, player))  // If it collided, then move projectile back
 	{
-		std::cout << "Projectile collided w/ player!!!!\n";
+		
 		//projVelY -= projVelY;
 		projPosX = rand() % 500;
 		projPosY = 0;
+		//projPosX -= projVelY;
+		//projPosY -= 250;
 		projCollider.x = projPosX;
 		projCollider.y = projPosY;
 		plk.addScore(1);
+		std::cout << "score is: " << plk.getScore() << "\n";
 	}
 	// if projectile falls thru bottom of screen
 	if (projPosY >= 500)
