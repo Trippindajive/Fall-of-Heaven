@@ -116,7 +116,7 @@ bool loadMedia()
 	{
 		// Render Text
 		SDL_Color textColor = { 0, 0, 0 };
-		if (!gTextTexture.loadFromRenderedText("The quick brown fox jumps over the lazy dog", textColor, gFont, gRenderer))
+		if (!gTextTexture.loadFromRenderedText("SCORE: %d", textColor, gFont, gRenderer))
 		{
 			printf("Failed to render text texture!\n");
 			success = false;
