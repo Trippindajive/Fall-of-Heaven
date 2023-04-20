@@ -18,11 +18,14 @@ const char* GAME_NAME = "Fall of Heaven";
 
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
+SDL_Texture* gTopLeftHUDTexture = NULL;
 LTexture gPlankTexture;
 LTexture gBarTexture;
 LTexture gProjTexture;
 TTF_Font* gFont = NULL;
 LTexture gTextTexture;
+
+SDL_Texture* loadTexture(string path);
 
 bool initGame()
 {
@@ -99,7 +102,7 @@ bool loadMedia()
 
 	if (!gProjTexture.loadFromFile("textures/projectile.png", gRenderer))
 	{
-		throw exception("Failed to load projectile texture!\n");
+		
 	}
 
 	// Open Font
@@ -120,7 +123,40 @@ bool loadMedia()
 		}
 	}
 
+	gTopLeftHUDTexture = loadTexture("textures/viewport.png");
+	if (gTopLeftHUDTexture == NULL)
+	{
+		throw exception("Failed to load top left HUD texture!\n");
+	}
+
 	return success;
+}
+
+SDL_Texture* loadTexture(std::string path)
+{
+	//The final texture
+	SDL_Texture* newTexture = NULL;
+
+	//Load image at specified path
+	SDL_Surface* loadedSurface = IMG_Load(path.c_str());
+	if (loadedSurface == NULL)
+	{
+		printf("Unable to load image %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
+	}
+	else
+	{
+		//Create texture from surface pixels
+		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+		if (newTexture == NULL)
+		{
+			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+		}
+
+		//Get rid of old loaded surface
+		SDL_FreeSurface(loadedSurface);
+	}
+
+	return newTexture;
 }
 
 void closeGame()
@@ -164,15 +200,8 @@ int main(int argc, char* args[])
 			SDL_Event e;
 			Plank plank;
 			Bar bar;
-			Projectile ball;
-			// Trying to make a small HUD at upper right corner
-			/*SDL_Rect topLeftViewport;
-			topLeftViewport.x = 500;
-			topLeftViewport.y = 0;
-			topLeftViewport.w = SCREEN_WIDTH / 4;
-			topLeftViewport.h = SCREEN_HEIGHT / 4;
-			SDL_RenderSetViewport(gRenderer, &topLeftViewport);*/
-
+			Projectile firestar;
+			
 			while (!game_quit)
 			{
 				// Handle events on queue
@@ -188,22 +217,33 @@ int main(int argc, char* args[])
 					plank.handleKeyPresses(e);
 				}
 
-				plank.move(*bar.getCollider(), SCREEN_HEIGHT, SCREEN_WIDTH);
-				ball.move(/**bar.getCollider(),*/ *plank.getCollider(), plank);
-
 				// Clear screen
 				SDL_SetRenderDrawColor(gRenderer, 0x00, 0x00, 0x00, 0xFF);
 				SDL_RenderClear(gRenderer);
 
+				// Trying to make a small HUD at upper right corner
+				SDL_Rect topLeftViewport{};
+				topLeftViewport.x = 0;
+				topLeftViewport.y = 0;
+				topLeftViewport.w = SCREEN_WIDTH / 2;
+				topLeftViewport.h = SCREEN_HEIGHT / 2;
+				SDL_RenderSetViewport(gRenderer, &topLeftViewport);
+				SDL_RenderCopy(gRenderer, gTopLeftHUDTexture, NULL, NULL);
+
+				plank.move(*bar.getCollider(), SCREEN_HEIGHT, SCREEN_WIDTH);
+				firestar.move(/**bar.getCollider(),*/ *plank.getCollider(), plank);
+
 				// Render objects
 				plank.render(&gPlankTexture, gRenderer);
-				bar.render(&gBarTexture, gRenderer);
-				ball.render(&gProjTexture, gRenderer);
+				//bar.render(&gBarTexture, gRenderer);
+				firestar.render(&gProjTexture, gRenderer);
+				//SDL_RenderCopy(gRenderer, gPlankTexture, NULL, NULL)
 
 				// Render Current Frame
 				gTextTexture.render((SCREEN_WIDTH - gTextTexture.getWidth()) / 2, (SCREEN_HEIGHT - gTextTexture.getHeight()) / 2, gRenderer);
 				//moveProjectiles(&ball, 10);
 				//ball.projVelY += 10;
+				//SDL_RenderCopy(gRenderer, gTopLeftHUDTexture, NULL, NULL);
 
 				// Update screen space
 				SDL_RenderPresent(gRenderer);
